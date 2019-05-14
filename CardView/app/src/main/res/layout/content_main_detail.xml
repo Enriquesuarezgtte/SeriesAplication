@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/viewBg"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="co.edu.konradlorenz.cardview.MainActivity"
+    tools:showIn="@layout/activity_album_detail">
+
+
+    <LinearLayout
+        style="@style/LinearRelContent"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TabLayout
+           style="@style/TabTheme"
+            android:id="@+id/tabsseasons"
+            app:tabIndicatorColor="@color/colorPrimary"
+            app:tabIndicatorHeight="1dp"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="@color/grey_400" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/frameLayout"
+            style="@style/LinearRelContent"
+            android:background="@color/white"
+            />
+    </LinearLayout>
+</RelativeLayout>

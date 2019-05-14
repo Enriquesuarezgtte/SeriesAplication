@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Series application</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_add_favourite">Add to Favorites</string>
+    <string name="action_play_next">Next serie</string>
+    <string name="backdrop_title">Music for the moment</string>
+    <string name="backdrop_subtitle">Top 9 Series</string>
+    <string name="action_click">Click selecting:</string>
+    <string name="series">series</string>
+</resources>

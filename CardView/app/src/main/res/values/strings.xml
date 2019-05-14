@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Aplicación de Series</string>
+    <string name="action_settings">Configuración</string>
+    <string name="action_add_favourite">Agregar a favoritos</string>
+    <string name="action_play_next">Siguiente serie</string>
+    <string name="backdrop_title">Música para el momento</string>
+    <string name="backdrop_subtitle">Las mejores 9 series</string>
+    <string name="action_click">Click seleccionando:</string>
+    <string name="series">series</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
