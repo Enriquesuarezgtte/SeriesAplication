@@ -1,13 +1,21 @@
 package co.edu.konradlorenz.cardview;
 
+import android.animation.Animator;
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -56,22 +64,36 @@ public class SerieAdapter extends RecyclerView.Adapter<SerieAdapter.MyViewHolder
         return new MyViewHolder(itemView);
     }
 
+
+    @Override
+    public void onViewAttachedToWindow(@NonNull MyViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        animateCircularReveal(holder.elementView);
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(@NonNull MyViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        holder.elementView.clearAnimation();
+    }
+
+    public void animateCircularReveal(View view) {
+        int centerX = 0;
+        int centerY = 0;
+        int startRadius = 0;
+        int endRadius = Math.max(view.getWidth(), view.getHeight());
+        Animator animation = ViewAnimationUtils.createCircularReveal(view, centerX, centerY, startRadius, endRadius);
+        view.setVisibility(View.VISIBLE);
+        animation.start();
+    }
+
+
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Serie serie = serieList.get(position);
 
-        holder.elementView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), SerieDetailActivity.class);
-                intent.putExtra("nombre_Serie", serie.getName());
-                intent.putExtra("temporadas_Serie", serie.getNumOfSeasons());
-                intent.putExtra("capitulos_Serie", serie.getCaptBySeason());
-                intent.putExtra("cover_Serie", serie.getThumbnail());
-                intent.putExtra("serie", serie);
-                mContext.startActivity(intent);
-            }
-        });
+
+
         holder.title.setText(serie.getName());
         holder.count.setText(serie.getNumOfSeasons()+""+R.string.series);
 
@@ -81,6 +103,28 @@ public class SerieAdapter extends RecyclerView.Adapter<SerieAdapter.MyViewHolder
             @Override
             public void onClick(View view) {
                 showPopupMenu(holder.overflow);
+            }
+        });
+        ViewCompat.setTransitionName(holder.thumbnail, serie.getName());
+        holder.elementView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+                Intent intent = new Intent(view.getContext(), SerieDetailActivity.class);
+                intent.putExtra("nombre_Serie", serie.getName());
+                intent.putExtra("temporadas_Serie", serie.getNumOfSeasons());
+                intent.putExtra("capitulos_Serie", serie.getCaptBySeason());
+                intent.putExtra("cover_Serie", serie.getThumbnail());
+                intent.putExtra("serie", serie);
+                ActivityOptionsCompat optionsCompat =
+
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(
+                                (Activity)view.getContext(),
+                                new Pair<View, String>(view.findViewById(R.id.thumbnail),mContext.getString(R.string.transition_name_circle)
+                                ));
+                mContext.startActivity(intent, optionsCompat.toBundle());
             }
         });
     }

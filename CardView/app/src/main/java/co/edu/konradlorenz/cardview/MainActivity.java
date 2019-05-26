@@ -26,15 +26,18 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private SerieAdapter adapter;
     private List<Serie> serieList;
+    public static final String TRANSITION_INITIAL = "initial_transition";
+    public static final String TRANSITION_NAME = "name_transition";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        initCollapsingToolbar();
+       initCollapsingToolbar();
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 

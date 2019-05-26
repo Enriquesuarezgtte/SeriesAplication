@@ -22,6 +22,7 @@
                 android:layout_height="@dimen/album_cover_height"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
+                android:transitionName="@string/transition_name_circle"
                 android:scaleType="fitXY" />
 
             <TextView

@@ -1,10 +1,12 @@
 package co.edu.konradlorenz.cardview;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -52,5 +54,28 @@ public class CapitulosAdapter extends RecyclerView.Adapter<CapitulosAdapter.MyVi
 
     public CapitulosAdapter(Context context,List<String> capitulos) {
         this.capitulos = capitulos;
+    }
+
+
+    @Override
+    public void onViewAttachedToWindow(@NonNull CapitulosAdapter.MyViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        animateCircularReveal(holder.itemView);
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(@NonNull CapitulosAdapter.MyViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        holder.elementView.clearAnimation();
+    }
+
+    public void animateCircularReveal(View view) {
+        int centerX = 0;
+        int centerY = 0;
+        int startRadius = 0;
+        int endRadius = Math.max(view.getWidth(), view.getHeight());
+        Animator animation = ViewAnimationUtils.createCircularReveal(view, centerX, centerY, startRadius, endRadius);
+        view.setVisibility(View.VISIBLE);
+        animation.start();
     }
 }
